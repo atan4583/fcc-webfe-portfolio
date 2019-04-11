@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="simonGame.css">
+
+<title>Simon Game</title>
+</head>
+
+<body>
+<div class="container-fluid wrapper">
+  <div class="row pageTitle">
+    <div class="col-md-5 col-md-offset-4 title text-center">
+      <h1>Simon Game</h1>
+      <h2>FCC Advanced FE DEV Project 4</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="gamefield">
+        <div class="btn-sett" data-toggle="modal" data-target="#myModal">
+          <h4>Settings</h4>
+        </div>
+        <div class="top-row">
+          <div id="blue" class="gamebutton" onClick="addToPlayer(this.id)"></div>
+        </div>
+        <div class="middle-row">
+          <div id="green" class="gamebutton" onClick="addToPlayer(this.id)"></div>
+          <div id="gameNumber">
+            <h2 id="clickNumber">0</h2></div>
+          <div id="red" class="gamebutton" onClick="addToPlayer(this.id)"></div>
+        </div>
+        <div class="bottom-row">
+          <div id="orange" class="gamebutton" onClick="addToPlayer(this.id)"></div>
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h2 class="modal-title" id="myModalLabel">Settings</h2>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <h4 class="black">Strict mode</h4>
+                  <p class="btn btn-primary text-center" id="strict" onClick="strict()">Off</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <h4 class="black">Reset</h4>
+                  <p class="btn btn-warning text-center" data-dismiss="modal" onClick="newGame()">Yes</p>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+            </div>
+
+          </div> <!-- model-content end -->
+        </div>  <!-- model-dialog end -->
+      </div>   <!-- model fade end -->
+    </div> <!-- col-md-12 end -->
+  </div>  <!-- row end -->
+
+
+  <div class="push"></div>
+</div>
+
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p class="lbl">Built by <a href="https://codepen.io/atan4583/" target="_blank">AUD T</a>, May 2017. &nbsp;Coding help credits to <a href="https://tinyurl.com/y9ez4fob" target="_blank">A PEN by Wojciech Kałużny</a>&nbsp;and various free web resources</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+var game = {
+  count: 0,
+  possibilities: ["#green", "#blue", "#red", "#orange"],
+  currentGame: [],
+  player: [],
+  sound: {
+    blue: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
+    red: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
+    orange: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"),
+    green: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3")
+  },
+  strict: false
+};
+
+function clearGame() {
+  game.currentGame = [];
+  game.count = 0;
+  addCount();
+}
+
+function newGame() {
+  clearGame();
+}
+
+function strict() {
+  if (game.strict == false) {
+    game.strict = true;
+    $("#strict")
+      .html("On")
+      .removeClass("btn-primary")
+      .addClass("btn-danger");
+  } else {
+    game.strict = false;
+    $("#strict")
+      .html("Off")
+      .removeClass("btn-danger")
+      .addClass("btn-primary");
+  }
+
+  newGame();
+}
+
+function showMoves() {
+  var i = 0;
+  var moves = setInterval(function() {
+    playGame(game.currentGame[i]);
+    i++;
+    if (i >= game.currentGame.length) {
+      clearInterval(moves);
+    }
+  }, 600);
+
+  clearPlayer();
+}
+
+function sound(name) {
+  switch (name) {
+    case "#green":
+      game.sound.green.play();
+      break;
+    case "#blue":
+      game.sound.blue.play();
+      break;
+    case "#red":
+      game.sound.red.play();
+      break;
+    case "#orange":
+      game.sound.orange.play();
+      break;
+  }
+}
+
+function playGame(field) {
+  $(field).addClass("hover");
+  sound(field);
+  setTimeout(function() {
+    $(field).removeClass("hover");
+  }, 300);
+}
+
+function clearPlayer() {
+  game.player = [];
+}
+
+function addToPlayer(id) {
+  var field = "#" + id;
+  console.log(field);
+  game.player.push(field);
+  playerTurn(field);
+}
+
+function playerTurn(x) {
+  if (
+    game.player[game.player.length - 1] !==
+    game.currentGame[game.player.length - 1]
+  ) {
+    if (game.strict) {
+      alert("Try again! ...From scratch!");
+      newGame();
+    } else {
+      alert("Wrong move! Try again!");
+      showMoves();
+    }
+  } else {
+    console.log("Good Move!");
+    sound(x);
+    var check = game.player.length === game.currentGame.length;
+    if (check) {
+      if (game.count == 20) {
+        alert("You won! Congrats.");
+      } else {
+        alert("Next round!");
+        nextLevel();
+      }
+    }
+  }
+}
+
+function nextLevel() {
+  addCount();
+}
+
+function generateMove() {
+  game.currentGame.push(game.possibilities[Math.floor(Math.random() * 4)]);
+  //alert(game.currentGame.length);
+  showMoves();
+}
+
+function addCount() {
+  game.count++;
+  $("#clickNumber").addClass("animated fadeOutDown");
+
+  setTimeout(function() {
+    $("#clickNumber")
+      .removeClass("fadeOutDown")
+      .html(game.count)
+      .addClass("fadeInDown");
+  }, 200);
+
+  generateMove();
+}
+
+newGame();
+
+</script>
+</body>
+</html>
