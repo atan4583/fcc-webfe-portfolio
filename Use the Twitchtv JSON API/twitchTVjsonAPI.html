@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="twitchTVjsonAPI.css">
+
+<title>WikiPedia Viewer</title>
+</head>
+<body>
+
+<div class="container-fluid wrapper">
+    <div class="row pageTitle">
+    <div class="col-md-5 col-md-offset-4 title text-center">
+      <h1>Twitchtv JSON API</h1>
+      <h2>FCC Intermediate FE DEV Project 4</h2>
+    </div>
+  </div>
+  
+  <div class="row vwrrow" id="header">
+    <div class="menu">
+      <div class="selector active" id="all">
+        <div class="circle"></div><p>All</p>
+      </div>
+      <div class="selector" id="online">
+        <div class="circle"></div><p>Online</p>
+      </div>
+      <div class="selector" id="offline">
+        <div class="circle"></div><p>Offline</p>
+      </div>
+    </div>
+  </div>
+  <div id="display">
+  </div>
+    
+  <div class="push"></div>
+</div>
+
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p class="lbl">Built by <a href="https://codepen.io/atan4583/" target="_blank">AUD T</a>, May 2017. &nbsp;Coding help credits to <a href="https://tinyurl.com/yakqagxd" target="_blank">A PEN by freeCodeCamp</a>&nbsp;and various free web resources</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var channels = ["freecodecamp","test_channel","ESL_SC2","noobs2ninjas","habathcx","cretetion","errorchaneel"];
+console.log(channels);
+$(document).ready(function() {
+  channels.forEach(function(channel) {
+    console.log(channel);
+    var url = 'https://wind-bow.gomix.me/twitch-api/streams/' + channel + '?callback=?';
+    console.log(url);
+    $.getJSON(url, function(data){
+      var dat = JSON.stringify(data);
+      console.log(dat);
+      var game, status;
+      //channel offline
+      if (data.stream === null) {    
+          game = "Offline";
+          status = "offline";
+      //channel closed 
+      } else if (data.stream === undefined) {
+          game = "Account Closed";
+          status = "offline";
+      // channel online  
+      } else {
+          game = data.stream.game;
+          status = "online";
+      }
+      console.log('game = ' + game + ', status = ' + status);
+      var chUrl = 'https://wind-bow.gomix.me/twitch-api/channels/' + channel + '?callback=?';
+      console.log('ch url = ' + chUrl);
+      $.getJSON(chUrl, function(data2){
+        var logo, name, gameDsp, desc;
+        logo = data2.logo != null ? data2.logo : "https://dummyimage.com/50x50/ecf0e7/5c5457.jpg&text=0x3F";
+        name = data2.display_name != null ? data2.display_name : channel;
+        gameDsp = data2.status === 404 ? data2.message : game;
+        desc = status === "online" ? ': ' + data2.status : "";
+        console.log('logo = ' + logo + ', name = ' + name +', desc = ' + desc);
+        var html = '<div class="row ' + status + '"><div class="col-xs-2 col-sm-1" id="icon"><img src="' + logo + '" class="logo"></div><div class="col-xs-10 col-sm-3" id="name"><a href="' + data2.url + '" target="_blank">' + name + '</a></div><div class="col-xs-10 col-sm-8" id="streaming">' + gameDsp + '<span class="hidden-xs">' + desc + '</span></div></div>';
+        /*console.log('html = ' + html); */
+        status === "online" ? $("#display").prepend(html) : $("#display").append(html);
+          
+      });
+    });
+  });
+  $(".selector").click(function(){
+    $(".selector").removeClass("active");
+    $(this).addClass("active");
+    var status = $(this).attr('id');
+    if (status === "all") {
+      $(".online, .offline").removeClass("hidden");    
+    } else if (status === "online") {
+      $(".online").removeClass("hidden");
+      $(".offline").addClass("hidden");
+    } else {
+      $(".offline").removeClass("hidden");
+      $(".online").addClass("hidden");
+    }
+  });
+});
+
+</script>
+</body>
+</html>
