@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="pomodClock.css">
+
+<title>Pomodoro Clock</title>
+</head>
+
+<body>
+<div class="container-fluid wrapper">
+  <div class="row pageTitle">
+    <div class="col-md-5 col-md-offset-4 title text-center">
+      <h1>Pomodoro Clock</h1>
+      <h2>FCC Advanced FE DEV Project 2</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h2 class="text-center">Session Length</h2>
+      <div class="row text-center">
+        <div id="session" class="col-md-4 col-md-offset-4">
+          <button id="minus" type="button" class="btn ghost">
+            <span  class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+          </button>
+          <h2 id="length"></h2>
+          <button id="plus" type="button" class="btn ghost">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div id="clock" class="col-md-4 text-center">
+      <h2>Controls</h2>
+      <button id="start" type="button" class="btn ghost green">
+        <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Start
+      </button>
+      <button id="resume" type="button" class="btn ghost green">
+        <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Resume
+      </button>
+      <button id="stop" type="button" class="btn ghost green"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span> Pause</button>
+
+      <button id="reset" type="button" class="btn ghost green">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reset
+      </button>
+    </div>
+
+    <div id="clock" class="col-md-4 circle">
+      <h2 class="text-center">Session</h2>
+      <!-- <h3 class="text-center">25</h3> -->
+      <h3 id="time" class="text-center">25</h3>
+    </div>
+  </div>
+
+
+
+  <div class="push"></div>
+</div>
+
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p class="lbl">Built by <a href="https://codepen.io/atan4583/" target="_blank">AUD T</a>, May 2017. &nbsp;Coding help credits to <a href="https://tinyurl.com/yb9epqvb" target="_blank">jQueryScript.net</a>&nbsp;and various free web resources</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+
+  var minutes = 25;
+  var isPaused = false;
+  var timerId = 0;
+
+  $("#length").text(minutes);
+
+  function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    timerId = setInterval(function () {
+      if(!isPaused){
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.text(minutes + ":" + seconds);
+
+        if (--timer < 0) {
+            timer = duration;
+            $("#stop").hide();
+            $("#resume").hide();
+        }
+
+      }
+
+    }, 1000);
+
+  }
+
+  function startPomodoro(min){
+
+    var fiveMinutes = 60 * min,
+    display = $('#time');
+    startTimer(fiveMinutes, display);
+  }
+
+  // Session length minus action
+  $("#minus").on("click", function(){
+    if(minutes > 1){
+      minutes -= 1;
+      $("#length").text(minutes);
+      $("#time").text(minutes);
+    }
+  });
+
+  // Session length plus action
+  $("#plus").on("click", function(){
+    if( minutes < 45){
+      minutes += 1;
+      $("#length").text(minutes);
+      $("#time").text(minutes);
+    }
+  });
+
+  // Start button click
+  $("#start").on("click", function(){
+    $("#minus, #plus").attr("disabled", true);
+    $(this).hide();
+    isPaused = false;
+    startPomodoro(minutes);
+    $("#stop").show();
+  });
+
+  //Stop button click
+  $("#stop").on("click", function(){
+    $(this).hide();
+    $("#resume").show();
+    isPaused = !isPaused;
+  });
+
+  //Resume button click
+  $("#resume").on("click", function(){
+    $(this).hide();
+    $("#stop").show();
+    isPaused = !isPaused;
+  });
+
+  //Reset button click
+  $("#reset").on("click", function(){
+    $("#minus, #plus").attr("disabled", false);
+    $("#stop").hide();
+    $("#resume").hide();
+    $("#start").show();
+    clearInterval(timerId);
+    minutes = 25;
+    $("#length").text(minutes);
+    $("#time").text(minutes);
+  });
+
+
+}); //end doc ready
+
+</script>
+</body>
+</html>
