@@ -1,0 +1,162 @@
+body {
+  font-family: Tahoma, Geneva, sans-serif;
+  background-color: #FFFFA9;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+
+.pageTitle {
+  background-color: rgba(200, 254, 46, 0.9);
+  color: #0E6409;
+}
+
+#calculator {
+  height: 410px;
+  width: 300px;
+  margin-top: 6%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #FDF6E0;
+  border: 2px solid #908b85;
+  border-radius: 20px;
+  box-shadow: 7px 10px 34px 1px rgba(0, 0, 0, 0.68), inset -1px -6px 12px 0.1px #89847e;
+}
+
+#entrybox {
+  width: 85%;
+  height: 65px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid #b4b39d;
+  border-radius: 6px;
+  background-color: #E4D5A5;
+}
+
+#entry {
+  margin-right: 10px;
+  font-size: 35px;
+}
+
+#buttons {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  position: absolute;
+  display: inline-block;
+  width: 280px;
+  height: auto;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+button {
+  border-radius: 8px;
+  border: none;
+  background-color: #502415;
+  margin: 0 4px 10px 8px;
+  height: 40px;
+  width: 50px;
+  box-shadow: 0px 3px 0px 0px #401507, inset -1px -3px 10px 1px #A9796A;
+}
+
+button:active {
+  transform: translate(0px, 3px);
+  box-shadow: none;
+}
+
+.row {
+  margin-top: 20px
+}
+
+#topAdjust {
+  margin-top: -52px;
+}
+
+#equalButton {
+  position: absolute;
+  margin-left: 12px;
+  margin-top: -50px;
+  height: 90px;
+}
+
+#zeroButton {
+  width: 117px;
+}
+
+.orange {
+  font-size: 14px;
+  background-color: #F27B04;
+  box-shadow: 0px 3px 0px 0px #FDC284;
+}
+
+button,
+button:hover,
+button:active,
+button:visited {
+  text-decoration: none !important;
+  outline: none !important;
+}
+
+a,
+a:hover,
+a:active,
+a:visited {
+  color: #922031;
+  text-decoration: none !important;
+  outline: none !important;
+}
+
+#history {
+  /*transform: translate(-13px, -17px);*/
+  position: relative;
+  height: 10px;
+  bottom: 17px;
+  margin-right: 14px;
+  color: #8b8b7b;
+  font-size: 12px;
+}
+
+
+/* Sticky Footer
+http://ryanfait.com/resources/footer-stick-to-bottom-of-page/ */
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  min-height: 100%; 
+  height: auto !important; /*Cause footer to stick to bottom in IE 6*/
+  height: 100%; 
+  margin: 0 auto -4em; /*Allow for footer height*/
+
+}
+
+.footer,
+.push {
+  clear: both;
+}
+
+.footer {
+  min-height: 4em;
+  background-color: rgba(200, 254, 46, 0.9);
+}
+
+
+.lbl {
+  color: #0E6409;
+}
+
+.lbl a:link, .lbl a:visited {
+  color: #A44BFC;
+}

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <link rel="stylesheet" href="JSCalculator.css">
+
+<title>JS Calculator</title>
+</head>
+<body>
+<div class="container-fluid wrapper">
+  <div class="row pageTitle">
+    <div class="col-md-5 col-md-offset-4 title text-center">
+      <h1>Javascript Calculator</h1>
+      <h2>FCC Advanced FE DEV Project 1</h2>
+    </div>
+  </div>
+
+  <div id='calculator'>
+
+    <div id='title' class='text-center'>
+      <h5>&nbsp;</h5>
+    </div>
+
+    <div id='entrybox' class='text-right'>
+      <div id='entry'>
+        <p id='answer'>0</p>
+      </div>
+      <div id='history'>
+        <p>0</p>
+      </div>
+    </div>
+
+    <div id='buttons'>
+
+      <button class='orange' value='ac'>AC</button>
+      <button class='orange' value='ce'>CE</button>
+      <button value='/'>&divide;</button>
+      <button value='*'>x</button>
+
+      <button value='7'>7</button>
+      <button value='8'>8</button>
+      <button value='9'>9</button>
+      <button value='-'>-</button>
+
+      <button value='4'>4</button>
+      <button value='5'>5</button>
+      <button value='6'>6</button>
+      <button value='+'>+</button>
+
+
+      <button value='1'>1</button>
+      <button value='2'>2</button>
+      <button value='3'>3</button>
+      <button class='invisible'>N</button>
+
+      <button id='zeroButton' value='0'>0</button>
+      <button value='.'>.</button>
+      <button class='orange' id='equalButton' value='='>=</button>
+
+    </div>
+
+  </div>
+
+  <div class="push"></div>
+</div>
+
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p class="lbl">Built by <a href="https://codepen.io/atan4583/" target="_blank">AUD T</a>, May 2017. &nbsp;Coding help credits to <a href="https://tinyurl.com/y9v4hygh" target="_blank"> A PEN by Justin Woodward</a>&nbsp;and various free web resources</p>
+      </div>
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function() {
+
+  var entry = '';
+  var ans = '';
+  var current = '';
+  var log = '';
+  var decimal = true;
+  var reset = '';
+
+  function rnding(val) {
+    console.log('~.~.~ rnding ~.~.~ ');
+    val = val.toString().split('');
+
+    console.log('  val: ', val);
+    if (val.indexOf('.') !== -1) {
+      var valTest = val.slice(val.indexOf('.') + 1, val.length);
+      val = val.slice(0, val.indexOf('.') + 1);
+      console.log('    valTest: ', valTest, ', new val: ', val);
+      var i = 0;
+      while (valTest[i] < 1) {
+        i++
+      }
+      console.log('    (after while) i= ', i, ', valTestSlice: ', valTest.slice(0, i+3));
+      if ((i+2 <= valTest.length) && valTest[i+2] >= 5) {
+        console.log('      lastD: ', valTest[i+2]);
+        valTest[i+1] = +valTest[i+1] + 1;
+        console.log('      adj: ', valTest[i+1]);
+      }
+      valTest = valTest.join('').slice(0, i + 2);
+      console.log('    (reconstruct valTest) i= ', i, ', newValTest: ', valTest);    
+      if (valTest[valTest.length-1] === '0') {
+        valTest = valTest.slice(0, -1);
+      }
+      return val.join('') + valTest;
+    } else {
+      return val.join('');
+    }
+  }
+
+
+  $('button').click(function() {
+
+    entry = $(this).attr("value");
+    console.log('*** button click, entry: ' + entry);
+
+    //reset for log after answer to equation.
+    if (reset) {
+      if (entry === '/' || entry === '*' || entry === '-' || entry === '+') {
+        log = ans;
+        console.log('reset: ',log);
+      } else {
+        console.log('reset else: ',log, ', ans: ',ans);
+        ans = '';
+      }
+    }
+    reset = false;
+
+    // All clear or Clear Entry
+    console.log('~~~ ac or ce ~~~');
+    console.log('  entry: ', entry, ', current: ', current);
+    if (entry === 'ac' || entry === 'ce' && current === 'noChange') {
+      ans = '';
+      current = '';
+      entry = '';
+      log = '';
+      $('#history').html('0');
+      $('#answer').html('0');
+      decimal = true;
+    } else if (entry === 'ce') {
+      $('#history').html(log.slice(0, -current.length));
+      log = log.slice(0, -current.length);
+      ans = ans.slice(0, -current.length);
+      current = ans;
+      if (log.length === 0 || log === ' ') {
+        $('#history').html('0');
+      }
+      $('#answer').html('0');
+      entry = '';
+      decimal = true;
+    }
+
+    // prevents more than one decimal in a number
+    console.log('~~~ chk multiple decimal in a number ~~~');
+    console.log('  entry: ', entry);
+    if (entry === '.' || entry === '0.') {
+      if (!decimal) {
+        console.log('    discard extra decimal: ', entry);
+        entry = '';
+      }
+    }
+
+    // prevents improper use of first digit
+    console.log('~~~ chk invalid 1st digit ~~~');
+    console.log('  ans: ', ans, ', entry:', entry);
+    if (ans.length === 0 && isNaN(entry) && entry !== '.' || ans.length === 0 && entry === '0') {
+      console.log('    discard invalid 1st digit, entry: ', entry, ', and ans: ', ans);
+      entry = '';
+      ans = '';
+    }
+
+    // prevents extra operators
+    console.log('~~~ chk multiple operators ~~~');
+    console.log('  current: ', current, ', entry:', entry);
+    if (current !== 'noChange') {
+      if (current === '' && isNaN(entry) && entry !== '.' || isNaN(current) && isNaN(entry) && entry !== '.') {
+        console.log('    discard the extra operator: ', entry);
+        entry = '';
+      }
+    }
+
+    // digit combining
+    while (Number(entry) || entry === '0' || current === '.') {
+      console.log('~~~ digit combining ~~~');
+      if (isNaN(current) && entry === '0' && current !== '.') {
+        entry = '';
+      } else if (isNaN(current) && Number(entry) && current !== '.') {
+        current = '';
+      }
+      if (entry === '.') {
+        decimal = false;
+      }
+      if (current === '0.' && isNaN(entry)) {
+        entry = '';
+      } else {
+        if (current[current.length - 1] === '.') {
+          console.log('  digit combining : concat current with entry !!!');
+          current = current.concat(entry);
+        } else {
+          console.log('  digit combining : combine current with entry !!!');
+          current += entry;
+        }
+        ans += entry;
+        $('#answer').html(current);
+        log += entry;
+        $('#history').html(log);
+        entry = '';
+      }
+    }
+
+
+    // calculation operations
+
+    if (entry === '.') {
+      console.log('~~~ calc.ops entry=dot ~~~');
+      if (current === '' || isNaN(current[current.length - 1])) {
+        console.log('  calc.ops entry=0.  !!!');
+        current = '0.';
+        ans += entry;
+        $('#answer').html('0.');
+        log += current;
+        $('#history').html(log);
+
+      } else {
+        console.log('  calc.ops else  !!!');
+        current = current.concat('.');
+        ans = ans.concat('.');
+        log = ans;
+        $('#history').html(ans);
+        $('#answer').html(current);
+      }
+      entry = '';
+      decimal = false;
+
+    } else if (entry === '/') {
+      console.log('~~~ calc.ops entry=divide ~~~');
+      current = '/';
+      ans = rnding(eval(ans)) + current;
+      log += current;
+      $('#history').html(log);
+      $('#answer').html('/');
+      entry = '';
+      decimal = true;
+
+    } else if (entry === '*') {
+      console.log('~~~ calc.ops entry=multiply ~~~');
+      current = '*';
+      ans = rnding(eval(ans)) + current;
+      log += 'x';
+      $('#history').html(log);
+      $('#answer').html('x');
+      entry = '';
+      decimal = true;
+
+    } else if (entry === '-') {
+      console.log('~~~ calc.ops entry=minus ~~~');
+      current = '-';
+      ans = rnding(eval(ans)) + current;
+      log += current;
+      $('#history').html(log);
+      $('#answer').html('-');
+      entry = '';
+      decimal = true;
+
+    } else if (entry === '+') {
+      console.log('~~~ calc.ops entry=plus ~~~');
+      current = '+';
+      ans = rnding(eval(ans)) + current;
+      log += current;
+      $('#history').html(log);
+      $('#answer').html('+');
+      entry = '';
+      decimal = true;
+
+    } else if (entry === '=') {
+      console.log('~~~ calc.ops entry=eq ~~~');
+      if (current[current.length - 1] === '.') {
+        entry = '';
+      } else {
+        current = eval(ans).toString();
+        console.log('  in = ops, current: ', current);
+        $('#answer').html(rnding(eval(ans)));
+        ans = rnding(eval(ans));
+        console.log('  in = ops, pre log: ',log, ', operator: ', entry);
+        log += entry + ans;
+        console.log('  in = ops, post log: ',log, ', operator: ', entry);
+        $('#history').html(log);
+        log = ans;
+        entry = '';
+        reset = true;
+        decimal = true;
+      }
+      current = 'noChange';
+    }
+    entry = '';
+
+    if (reset) {
+      log = '';
+    }
+
+
+    // check max digits on screen
+    console.log('@@@@@@@');
+    console.log('chk max digit-entry len: ', $('#entry').children().text().length);
+    console.log('chk max digit-hist len: ', $('#history').text().length);
+    console.log('chk max digit-hist : ', $('#history').text());
+    console.log('chk max digit-ans: ', $('#history').text().slice($('#history').text().indexOf('=') + 1, $('#history').text().length));
+    if ($('#entry').children().text().length > 8 || $('#history').text().length > 22) {
+      alert("Sorry, exceeding max. digit limit");
+      $('#answer').html('0');
+      $('#history').html('Digit Limit Met');
+      current = '';
+      ans = '';
+      log = '';
+      decimal = true;
+    }
+
+    console.log('########');
+    console.log('decimal: ' + decimal);
+    console.log('current: ' + current);
+    console.log('ans: ' + ans);
+    console.log('log: ' + log);
+    console.log('hist: ' + $('#history').text());
+    console.log($('#history').text().length);
+
+  });  // end button click
+
+}); //end doc ready
+
+</script>
+</body>
+</html>
