@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="ticTacToe.css">
+
+<title>Tic Tac Toe Game</title>
+</head>
+
+<body>
+<div class="container-fluid wrapper">
+  <div class="row pageTitle">
+    <div class="col-md-5 col-md-offset-4 title text-center">
+      <h1>Tic Tac Toe Game</h1>
+      <h2>FCC Advanced FE DEV Project 3</h2>
+    </div>
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title text-center">Tic Tac Toe Game</h4>
+        </div>
+        <div class="modal-body">
+          <h3>Welcome to the Tic Tac Toe Game!</h3>
+          <p>It’s time to choose your figure.</p>
+          <p id="test"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="x" class="btn" data-dismiss="modal" onclick="setFig(this.id)"><span class="fa fa-times"></span></button>
+          <button type="button" id="o" class="btn" data-dismiss="modal" onclick="setFig(this.id)"><span class="fa fa-circle-o"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="game">
+    <div id="first" onclick="icon(this.id)" class="game-field"></div>
+    <div id="second" onclick="icon(this.id)" class="game-field"></div>
+    <div id="third" onclick="icon(this.id)" class="game-field"></div>
+    <div id="fourth" onclick="icon(this.id)" class="game-field"></div>
+    <div id="fifth" onclick="icon(this.id)" class="game-field"></div>
+    <div id="sixth" onclick="icon(this.id)" class="game-field"></div>
+    <div id="seventh" onclick="icon(this.id)" class="game-field"></div>
+    <div id="eight" onclick="icon(this.id)" class="game-field"></div>
+    <div id="nineth" onclick="icon(this.id)" class="game-field"></div>
+  </div>
+
+
+  <div class="push"></div>
+</div>
+
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p class="lbl">Built by <a href="https://codepen.io/atan4583/" target="_blank">AUD T</a>, May 2017. &nbsp;Coding help credits to <a href="https://tinyurl.com/ydymth2b" target="_blank">Tic Tac Toe&nbsp;—&nbsp;JavaScript Game by Wojciech Kałużny</a>&nbsp;and various free web resources</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+/* Game object with all variables. */
+var game = {
+  first: true,
+  user: '',
+  computer: '',
+  currentPlayer: '',
+  moves: 1,
+};
+
+/* FIRST GAME FUNCTIONS */
+
+// Show modal at the begining!
+function start() {
+  $('#myModal').modal('show');
+}
+
+function setFig(id) {
+  if (id === 'x') {
+    game.user = '<span class="fa fa-times"></span>';
+    game.computer = '<span class="fa fa-circle-o"></span>';
+  } else if (id === 'o') {
+    game.user = '<span class="fa fa-circle-o"></span>';
+    game.computer = '<span class="fa fa-times"></span>';
+  }
+  firstMove();
+  setCurrPl('user');
+}
+
+/* GAME MECHANICS */
+//First Move by Computer
+function firstMove() {
+  $('#fifth').html(game.computer);
+  $('#fifth').removeAttr('onClick');
+}
+
+// Add icon to certain field
+function icon(id) {
+  if (game.currentPlayer == 'user') {
+    $('#' + id).html(game.user);
+    $('#' + id).removeAttr('onClick');
+    gameStatus();
+    setCurrPl('computer');
+  } else if (game.currentPlayer == 'computer') {
+    $('#' + id).html(game.computer);
+    $('#' + id).removeAttr('onClick');
+    gameStatus();
+    setCurrPl('user');
+  }
+  game.moves++;
+  draw();
+
+  if (game.currentPlayer == 'computer') {
+    comp();
+  }
+}
+
+// Computer's decision
+function comp() {
+  switch (true) {
+    case $('#first').html() != game.user && $('#first').html() != game.computer:
+      icon('first');
+      break;
+    case $('#second').html() !== game.user && $('#second').html() !== game.computer:
+      icon('second');
+      break;
+    case $('#third').html() !== game.user && $('#third').html() !== game.computer:
+      icon('third');
+      break;
+    case $('#fourth').html() !== game.user && $('#fourth').html() !== game.computer:
+      icon('fourth');
+      break;
+    case $('#fifth').html() !== game.user && $('#fifth').html() !== game.computer:
+      icon('fifth');
+      break;
+    case $('#sixth').html() !== game.user && $('#sixth').html() !== game.computer:
+      icon('sixth');
+      break;
+    case $('#seventh').html() !== game.user && $('#seventh').html() !== game.computer:
+      icon('seventh');
+      break;
+    case $('#eight').html() !== game.user && $('#eight').html() !== game.computer:
+      icon('eight');
+      break;
+    case $('nineth').html() !== game.user && $('#nineth').html() !== game.computer:
+      icon('nineth');
+      break;
+  }
+};
+
+//Mini functions
+function lockAll() {
+  $('.game-field').removeAttr('onClick');
+}
+
+function setCurrPl(curr) {
+  game.currentPlayer = curr;
+}
+
+/* GAME OVER */
+
+// Check game status - win/draw or still going?
+function gameStatus() {
+  var curPlayer;
+
+  if (game.currentPlayer == 'user') {
+    curPlayer = game.user;
+  } else if (game.currentPlayer == 'computer') {
+    curPlayer = game.computer;
+  }
+
+  switch (true) {
+    case $('#first').html() === curPlayer && $('#second').html() === curPlayer &&
+    $('#third').html() === curPlayer:
+      show('#first', '#second', '#third');
+      break;
+    case $('#fourth').html() === curPlayer && $('#fifth').html() === curPlayer &&
+    $('#sixth').html() === curPlayer:
+      show('#fourth', '#fifth', '#sixth');
+      break;
+    case $('#seventh').html() === curPlayer && $('#eight').html() === curPlayer &&
+    $('#nineth').html() === curPlayer:
+      show('#seventh', '#eight', '#nineth');
+      break;
+    case $('#first').html() === curPlayer && $('#fourth').html() === curPlayer &&
+    $('#seventh').html() === curPlayer:
+      show('#first', '#fourth', '#seventh');
+      break;
+    case $('#second').html() === curPlayer && $('#fifth').html() === curPlayer &&
+    $('#eight').html() === curPlayer:
+      show('#second', '#fifth', '#eight');
+      break;
+    case $('#third').html() === curPlayer && $('#sixth').html() === curPlayer &&
+    $('#nineth').html() === curPlayer:
+      show('#third', '#sixth', '#nineth');
+      break;
+    case $('#first').html() === curPlayer && $('#fifth').html() === curPlayer &&
+    $('#nineth').html() === curPlayer:
+      show('#first', '#fifth', '#nineth');
+      break;
+    case $('#third').html() === curPlayer && $('#fifth').html() === curPlayer &&
+    $('#seventh').html() === curPlayer:
+      show('#third', '#fifth', '#seventh');
+      break;
+    default:
+      draw();
+  }
+};
+
+// Is it a draw??
+function draw() {
+  if (game.moves === 9) {
+    setTimeout(reset, 1000);
+  }
+}
+
+// Show which row wins!
+function show(x, y, z) {
+  var x = $(x),
+    y = $(y),
+    z = $(z);
+  x.addClass('win');
+  y.addClass('win');
+  z.addClass('win');
+  lockAll();
+  setTimeout(reset, 3000);
+}
+
+/* RESET THE GAME */
+function reset() {
+  $('.game-field').html('');
+  game.moves = 1;
+  $('.game-field').attr('onClick', 'icon(this.id)');
+  $('.win').removeClass('win');
+  setTimeout(firstMove, 200);
+}
+
+setTimeout(start,600);
+
+
+
+</script>
+</body>
+</html>

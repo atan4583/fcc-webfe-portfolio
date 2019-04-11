@@ -1,0 +1,146 @@
+body {
+  font-family: Tahoma, Geneva, sans-serif;
+  background-color: #FFFFE6;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+
+.pageTitle {
+  background-color: rgba(255, 182, 103, 0.8);
+  color: #C86502;
+}
+
+.game {
+  background-color: transparent;
+  width: 402px;
+  height: 402px;
+  margin: 50px auto;
+}
+
+.game-field {
+  width: 134px;
+  height: 134px;
+  display: block;
+  float: left;
+  color: #FF8000;
+  font-size: 6.3em;
+  padding: 1px 27px;
+}
+
+.win {
+  color: #7018EC;
+  transition: 300ms;
+}
+
+#first, #second, #third {
+  border-bottom: 3px solid #525B76;
+}
+
+#second {
+  border-left: 3px solid #525B76;
+  border-right: 3px solid #525B76;
+}
+
+#fourth, #fifth, #sixth {
+  border-bottom: 3px solid #525B76;
+}
+
+#fifth {
+  border-left: 3px solid #525B76;
+  border-right: 3px solid #525B76;
+}
+
+#eight {
+  border-left: 3px solid #525B76;
+  border-right: 3px solid #525B76;
+}
+
+.modal-content {
+  background-color: #FEF0E2;
+}
+
+.modal-header {
+  background-color: #FF8000;
+  width: 100%;
+  height: 100%;
+  color: #FEF0E2;
+}
+.modal-header button {
+  font-weight: 900;
+  font-size: 2.5em;
+  color: black;
+}
+.modal-header button:hover {
+  color: #FEF0E2;
+}
+.modal-header h4 {
+  font-size: 2.3em;
+}
+
+.modal-body {
+  padding: 30px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.modal-footer {
+  padding: 10px 80px 10px 0px;
+}
+.modal-footer button {
+  background-color: white;
+  color: black;
+  width: 40%;
+  font-size: 2em;
+  transition: 500ms;
+}
+.modal-footer button:hover {
+  background-color: #FF8000;
+  color: white;
+}
+
+
+
+
+/* Sticky Footer
+http://ryanfait.com/resources/footer-stick-to-bottom-of-page/ */
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  min-height: 100%; 
+  height: auto !important; /*Cause footer to stick to bottom in IE 6*/
+  height: 100%; 
+  margin: 0 auto -4em; /*Allow for footer height*/
+
+}
+
+.footer,
+.push {
+  clear: both;
+}
+
+.footer {
+  min-height: 4em;
+  background-color: rgba(255, 182, 103, 0.8);
+}
+
+
+.lbl {
+  color: #C86502;
+}
+
+.lbl a:link, .lbl a:visited {
+  color: #7018EC;
+}
