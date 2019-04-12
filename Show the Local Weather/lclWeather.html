@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="lclWeatherApp.css">
+<title>Local Weather App</title>
+</head>
+<body>
+	<div class="container">
+      <div class="jumbotron">
+          <h1>Local Weather App</h1>
+          <h2>FCC Intermediate FE DEV Project 2</h2>
+      </div>	
+	  <div class="container">
+  		<div class='location'></div>
+  		<div class='description'></div>
+      <div class='tempText'>CURRENT TEMP.</div>
+  		<div class='icon'></div>
+  		<div class='temp'>
+        <button class='btn btn-yellow'>
+      </div>
+      <br/> 
+      <br/>
+    <div class='row'>
+      <div class='col-md-6'>
+        
+        <div class='humidity'>Humidity:
+        </div>
+      </div>
+      <div class='col-md-6'>
+
+        <div class='wind'>Wind:
+        </div>
+      </div>
+    </div>
+    </div>  
+	</div>
+    
+	<br/>
+  <br/>  
+	<p class='lbl'>Built by <a href="https://codepen.io/atan4583/" target="_blank">AUD T</a>, May 2017. &nbsp;Coding help credits to <a href="https://tinyurl.com/ycfznsdz" target="_blank">A PEN by Michael Morries</a>&nbsp;and various free web resources</p>
+
+	<script>
+        $(document).ready(function() {
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(getPos, showErr);
+               
+            } else {
+               $('.error').css('display', 'block').html('<p>Your browser doesn\'t seem to support geolocation.  Try another one!</p>'); 
+            }
+        
+            function getPos(pos) {
+                var lat = pos.coords.latitude //33.92532167526033//data.latitude;
+                var lon = pos.coords.longitude//-118.39802984480492//data.longitude;
+                console.log('lat= ' + lat);
+                console.log('lon= ' + lon);
+                var api = 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid=bfd892f85b7d7d5a8530f0c37970c4a1&units=imperial';
+                console.log(api);
+                
+                $.getJSON(api, function(data) {
+				    var dat = JSON.stringify(data);
+				    /* dat = JSON.stringify(data, null, 4); */
+				    console.log(dat);
+				    var fTemp = data.main.temp.toFixed(0);
+				    var humidity = data.main.humidity;
+				    var wind = data.wind.speed.toFixed(1);
+				    var wTyp = data.weather[0].main.toLowerCase();
+				    var desc = data.weather[0].description.toUpperCase();
+				    var iconNum = data.weather[0].icon;
+                
+                    $('.location').append(data.sys.country + ", ").append(data.name);
+
+				    $('.description').append(desc);
+				    $('.icon').append("<span class='sprite sprite-" + iconNum + "'></span>");
+      	            $('.btn').html(fTemp + '\xB0 F');
+
+				    $('.humidity').append(humidity + '%');
+
+				    $('.wind').append(wind + ' mph');
+
+				    switch (wTyp) {
+					   case 'drizzle':
+						  $('body').css('background-image','url(https://tinyurl.com/kwmugjk)');
+						  break;
+					   case 'clouds':
+						  $('body').css('background-image','url(https://tinyurl.com/lhbr7yb)');
+						  break;
+					   case 'rain':
+						  $('body').css('background-image','url(https://tinyurl.com/lvkljfw)');
+						  break;
+					   case 'snow':
+						  $('body').css('background-image','url(https://tinyurl.com/mnjlr69)');
+						  break;
+					   case 'clear':
+						  $('body').css('background-image','url(https://tinyurl.com/muaku4b)');
+						  break;
+					   case 'thunderstom':
+						  $('body').css('background-image','url(https://tinyurl.com/nxr64fk)');
+						  break;
+					   default:
+						  $('body').css('background-image','url(https://tinyurl.com/m67bwxh)');
+						  break;
+				    }
+                    
+				    var kph = (wind * 1.609344).toFixed(1);
+				    var cTemp = ((fTemp - 32) * 5 / 9).toFixed(0);
+      			    console.log('kph= ' + kph);
+     			    console.log('cTemp= ' + cTemp);
+      			    $('button').click(function(){
+        		      if ($('.btn').is(":contains('\xB0 F')")) {
+           			      $('.btn').html(cTemp + '\xB0 C');
+           			      $('.wind').html('Wind: ' + kph + ' kph');
+        		      } else {
+           			      $('.btn').html(fTemp + '\xB0 F');
+           			      $('.wind').html('Wind: ' + wind + ' mph');
+        		      }
+                    });
+                });               
+            }
+            
+            function showErr(err) {
+                switch (err.code) {
+                    case err.PERMISSION_DENIED: 
+                        $('.error').css('display', 'block').html('<p>User declined request for Geolocation.</p>');     
+                        break;
+                    case err.POSITION_UNAVAILABLE:
+                        $('.error').css('display', 'block').html('<p>Geoloaction information unavailable.</p>'); 
+                        break;
+                    case err.TIMEOUT:
+                        $('.error').css('display', 'block').html('<p>Request to get get Geolocation timed out.</p>'); 
+                        break;
+                    case err.UNKNOWN_ERROR: 
+                        $('.error').css('display', 'block').html('<p>Unknown error occured.</p>'); 
+                        break;
+                }
+            }
+	   });
+    
+        
+        
+	</script>
+</body>
+</html>
