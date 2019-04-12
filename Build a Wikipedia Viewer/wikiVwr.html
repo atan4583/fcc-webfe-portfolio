@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="wikiVwr.css">
+
+<title>WikiPedia Viewer</title>
+</head>
+<body>
+
+<div class="container-fluid wrapper">
+  <div class="row pageTitle">
+    <div class="col-md-5 col-md-offset-4 title text-center">
+      <h1>Wikipedia Viewer</h1>
+      <h2>FCC Intermediate FE DEV Project 3</h2>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-md-8 col-md-offset-2  text-center">
+      <input type="text" class="search_box" id="input" placeholder="Search Wikipedia">
+      <button type="submit" class="btn btn-grn searchSubmit" id="searchSubmit">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+      <button type="submit" class="btn btn-grn" id="randomPage"><a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">
+        Feelin' Lucky?</a>
+      </button>
+      
+    </div>
+  </div>
+
+  <div id="display-result" class="col-md-6 col-md-offset-3 ">
+  </div>
+
+  <div class="push"></div>
+</div>
+
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p></p>      
+      </div>
+      <div class="col-md-12 text-center">
+        <p class="lbl">Built by <a href="https://codepen.io/atan4583/" target="_blank">AUD T</a>, May 2017.  &nbsp;Coding help credits to <a href="https://tinyurl.com/ydd5v9k4" target="_blank"> A PEN by Kevin McGowan</a>&nbsp;and various free web resources</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var apiURL = "https://en.wikipedia.org/w/api.php?callback=?";
+
+$(document).ready(function() {
+  $('#searchSubmit').click(function() {
+    $("#display-result").empty(); // clear prior search results 
+    $.getJSON(apiURL, {
+        action: 'query',
+        format: 'json',
+        inprop: "url",
+        formatversion: 2,
+        generator: 'search',
+        gsrsearch: $("input").val(),
+        gsrwhat: "text",
+        prop: 'extracts|info',
+        exsentences: 3,
+        exintro: "",
+        explaintext: "",        
+        exlimit: 20,
+      })
+      .success(function(response) {
+        var dat = JSON.stringify(response);
+        console.log(dat);
+        console.log(response);
+        response.query.pages.forEach(function(resp) {
+          $('#display-result').append(
+            "<div id='result' class='results'><a href='" + resp.fullurl + "' target= '_blank'><h3>" + resp.title + "</h3></a><p class='extract'>" + resp.extract + "</p></div>");
+        })
+      });
+  }); // search
+  
+  $('#randomPage').click(function() {
+    
+  }); // randomPage
+  
+  
+  // trigger submit on use of enter key
+  $("#input").keyup(function(event) {
+    $("#display-result").empty();
+    if (event.keyCode == 13) {
+      $("#searchSubmit").click();
+    }
+  });
+});
+
+</script>
+</body>
+</html>
