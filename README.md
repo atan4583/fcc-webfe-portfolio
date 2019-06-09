@@ -162,7 +162,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 > * Language: HTML, CSS, JavaScript
 >
 >
-> * Live artifact: [**Build a Tribute Page** FCC Basic FE DEV Project 1](https://codepen.io/atan4583/full/GWdydj)
+> * Live artifact: **Build a Tribute Page** _FCC Basic FE DEV Project 1_ in [English](https://codepen.io/atan4583/full/GWdydj) and [Deutsch](https://codepen.io/atan4583/full/PpRmBX)
 >
 >
- ---   
+ ---
