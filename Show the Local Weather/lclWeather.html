@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="lclWeatherApp.css">
+	<link rel="stylesheet" href="lclWeather.css">
 <title>Local Weather App</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
       <div class="jumbotron">
           <h1>Local Weather App</h1>
           <h2>FCC Intermediate FE DEV Project 2</h2>
-      </div>	
+      </div>
 	  <div class="container">
   		<div class='location'></div>
   		<div class='description'></div>
@@ -25,11 +25,11 @@
   		<div class='temp'>
         <button class='btn btn-yellow'>
       </div>
-      <br/> 
+      <br/>
       <br/>
     <div class='row'>
       <div class='col-md-6'>
-        
+
         <div class='humidity'>Humidity:
         </div>
       </div>
@@ -39,11 +39,11 @@
         </div>
       </div>
     </div>
-    </div>  
+    </div>
 	</div>
-    
+
 	<br/>
-  <br/>  
+  <br/>
 	<p class='lbl'>Built by <a href="https://codepen.io/atan4583/" target="_blank">AUD T</a>, May 2017. &nbsp;Coding help credits to <a href="https://tinyurl.com/ycfznsdz" target="_blank">A PEN by Michael Morries</a>&nbsp;and various free web resources</p>
 
 	<script>
@@ -51,11 +51,11 @@
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(getPos, showErr);
-               
+
             } else {
-               $('.error').css('display', 'block').html('<p>Your browser doesn\'t seem to support geolocation.  Try another one!</p>'); 
+               $('.error').css('display', 'block').html('<p>Your browser doesn\'t seem to support geolocation.  Try another one!</p>');
             }
-        
+
             function getPos(pos) {
                 var lat = pos.coords.latitude //33.92532167526033//data.latitude;
                 var lon = pos.coords.longitude//-118.39802984480492//data.longitude;
@@ -63,7 +63,7 @@
                 console.log('lon= ' + lon);
                 var api = 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid=bfd892f85b7d7d5a8530f0c37970c4a1&units=imperial';
                 console.log(api);
-                
+
                 $.getJSON(api, function(data) {
 				    var dat = JSON.stringify(data);
 				    /* dat = JSON.stringify(data, null, 4); */
@@ -74,7 +74,7 @@
 				    var wTyp = data.weather[0].main.toLowerCase();
 				    var desc = data.weather[0].description.toUpperCase();
 				    var iconNum = data.weather[0].icon;
-                
+
                     $('.location').append(data.sys.country + ", ").append(data.name);
 
 				    $('.description').append(desc);
@@ -108,7 +108,7 @@
 						  $('body').css('background-image','url(https://tinyurl.com/m67bwxh)');
 						  break;
 				    }
-                    
+
 				    var kph = (wind * 1.609344).toFixed(1);
 				    var cTemp = ((fTemp - 32) * 5 / 9).toFixed(0);
       			    console.log('kph= ' + kph);
@@ -122,29 +122,29 @@
            			      $('.wind').html('Wind: ' + wind + ' mph');
         		      }
                     });
-                });               
+                });
             }
-            
+
             function showErr(err) {
                 switch (err.code) {
-                    case err.PERMISSION_DENIED: 
-                        $('.error').css('display', 'block').html('<p>User declined request for Geolocation.</p>');     
+                    case err.PERMISSION_DENIED:
+                        $('.error').css('display', 'block').html('<p>User declined request for Geolocation.</p>');
                         break;
                     case err.POSITION_UNAVAILABLE:
-                        $('.error').css('display', 'block').html('<p>Geoloaction information unavailable.</p>'); 
+                        $('.error').css('display', 'block').html('<p>Geoloaction information unavailable.</p>');
                         break;
                     case err.TIMEOUT:
-                        $('.error').css('display', 'block').html('<p>Request to get get Geolocation timed out.</p>'); 
+                        $('.error').css('display', 'block').html('<p>Request to get get Geolocation timed out.</p>');
                         break;
-                    case err.UNKNOWN_ERROR: 
-                        $('.error').css('display', 'block').html('<p>Unknown error occured.</p>'); 
+                    case err.UNKNOWN_ERROR:
+                        $('.error').css('display', 'block').html('<p>Unknown error occured.</p>');
                         break;
                 }
             }
 	   });
-    
-        
-        
+
+
+
 	</script>
 </body>
 </html>
