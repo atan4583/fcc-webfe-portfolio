@@ -8,7 +8,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 ## Project Deliverables Summary
 
 ### 1. [Build A Simon Game](https://github.com/atan4583/fcc-webfe-portfolio/tree/master/Build%20A%20Simon%20Game)
-> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Simon® Game](https://codepen.io/FreeCodeCamp/full/obYBjE).
+> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Simon® Game App](https://codepen.io/FreeCodeCamp/full/obYBjE).
 >
 >
 > * Fulfill the following user stories:
@@ -31,7 +31,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 
  ---
 ### 2. [Build A Tic Tac Toe Game](https://github.com/atan4583/fcc-webfe-portfolio/tree/master/Build%20A%20Tic%20Tac%20Toe%20Game)
-> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Tic Tac Toe Game](https://codepen.io/FreeCodeCamp/full/KzXQgy).
+> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Tic Tac Toe Game App](https://codepen.io/FreeCodeCamp/full/KzXQgy).
 >
 >
 > * Fulfill the following user stories:
@@ -48,7 +48,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 >
  ---
 ### 3. [Build A Pomodoro Clock](https://github.com/atan4583/fcc-webfe-portfolio/tree/master/Build%20A%20Pomodoro%20Clock)
-> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Build a Pomodoro Clock](https://codepen.io/freeCodeCamp/full/aNyxXR).
+> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Pomodoro Clock App](https://codepen.io/freeCodeCamp/full/aNyxXR).
 >
 >
 > * Fulfill the following user stories:
@@ -65,7 +65,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 >
  ---
 ### 4. [Build A JavaScript Calculator](https://github.com/atan4583/fcc-webfe-portfolio/tree/master/Build%20A%20JavaScript%20Calculator)
-> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Build A JavaScript Calculator](https://codepen.io/FreeCodeCamp/full/rLJZrA).
+> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [JavaScript Calculator App](https://codepen.io/FreeCodeCamp/full/rLJZrA).
 >
 >
 > * Fulfill the following user stories:
@@ -82,7 +82,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 >
  ---
 ### 5. [Use the Twitchtv JSON API](https://github.com/atan4583/fcc-webfe-portfolio/tree/master/Use%20the%20Twitchtv%20JSON%20API)
-> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Use the Twitchtv JSON API](https://codepen.io/FreeCodeCamp/full/Myvqmo/).
+> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Twitchtv JSON API App](https://codepen.io/FreeCodeCamp/full/Myvqmo/).
 >
 >
 > * Fulfill the following user stories:
@@ -100,7 +100,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 >
  ---
 ### 6. [Build a Wikipedia Viewer](https://github.com/atan4583/fcc-webfe-portfolio/tree/master/Build%20a%20Wikipedia%20Viewer)
-> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Build a Wikipedia Viewer](https://codepen.io/FreeCodeCamp/full/wGqEga/).
+> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Wikipedia Viewer App](https://codepen.io/FreeCodeCamp/full/wGqEga/).
 >
 >
 > * Fulfill the following user stories:
@@ -116,7 +116,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 >
  ---
 ### 7. [Show the Local Weather](https://github.com/atan4583/fcc-webfe-portfolio/tree/master/Show%20the%20Local%20Weather)
-> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Show the Local Weather](http://codepen.io/FreeCodeCamp/full/bELRjV).
+> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Local Weather App](http://codepen.io/FreeCodeCamp/full/bELRjV).
 >
 >
 > * Fulfill the following user stories:
@@ -133,7 +133,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 >
  ---
 ### 8. [Build a Personal Portfolio Webpage](https://github.com/atan4583/fcc-webfe-portfolio/tree/master/Build%20a%20Personal%20Portfolio%20Webpage)
-> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Build a Personal Portfolio Webpage](https://codepen.io/FreeCodeCamp/full/YqLyXB).
+> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Personal Portfolio Webpage App](https://codepen.io/FreeCodeCamp/full/YqLyXB).
 >
 >
 > * Fulfill the following user stories:
@@ -151,7 +151,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 >
  ---
 ### 9. [Build a Tribute Page](https://github.com/atan4583/fcc-webfe-portfolio/tree/master/Build%20a%20Tribute%20Page)
-> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Build a Tribute Page](https://codepen.io/FreeCodeCamp/full/NNvBQW).
+> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Tribute Page App](https://codepen.io/FreeCodeCamp/full/NNvBQW).
 >
 >
 > * Fulfill the following user stories:
