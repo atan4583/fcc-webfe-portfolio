@@ -151,7 +151,7 @@ This repo contains a collection of project deliverables from my Web Front End Ce
 >
  ---
 ### 9. [Build a Tribute Page](https://github.com/atan4583/fcc-webfe-portfolio/tree/master/Build%20a%20Tribute%20Page)
-> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Build a Personal Portfolio Webpage](https://codepen.io/FreeCodeCamp/full/NNvBQW).
+> * Buid a [CodePen.io](https://codepen.io) app that is functionally similar to this [Build a Tribute Page](https://codepen.io/FreeCodeCamp/full/NNvBQW).
 >
 >
 > * Fulfill the following user stories:
